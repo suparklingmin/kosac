@@ -3,6 +3,8 @@ import re
 
 from .utils import *
 
+from importlib.resources import files
+
 class SentimentLexicon:
   def __init__(self, filepath=None, ngrams=[1], min_freq=1, threshold=0.0):
     self.ngrams = ngrams
@@ -142,7 +144,7 @@ class SentimentLexicon:
     return softmax(np.log(smoothed).sum()).sort_values(ascending=False)
 
 class PolarityLexicon(SentimentLexicon):
-  def __init__(self, filepath='polarity.csv', **kwargs):
+  def __init__(self, filepath=files('kosac.data.lexicon').joinpath('polarity.csv'), **kwargs):
     super().__init__(filepath=filepath, **kwargs)
   
   labels = ['COMP', 'NEG', 'NEUT', 'None', 'POS'] 
