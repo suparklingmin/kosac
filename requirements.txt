@@ -1,0 +1,4 @@
+pandas
+konlpy
+nltk
+transformers
