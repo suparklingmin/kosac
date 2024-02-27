@@ -145,21 +145,39 @@ class SentimentLexicon:
     return softmax(np.log(smoothed).sum()).sort_values(ascending=False)
 
 class PolarityLexicon(SentimentLexicon):
+  def __init__(self, filepath='./data/lexicon/polarity.csv', ngrams=[1]):
+    self.super().__init__(filepath=filepath, ngrams=ngrams)
+  
   labels = ['COMP', 'NEG', 'NEUT', 'None', 'POS'] 
 
 class IntensityLexicon(SentimentLexicon):
+  def __init__(self, filepath='./data/lexicon/intensity.csv', ngrams=[1]):
+    self.super().__init__(filepath=filepath, ngrams=ngrams)
+  
   labels = ['High', 'Low', 'Medium', 'None']
 
 class ExpressiveTypeLexicon(SentimentLexicon):
+  def __init__(self, filepath='./data/lexicon/expressive-type.csv', ngrams=[1]):
+    self.super().__init__(filepath=filepath, ngrams=ngrams)
+  
   labels = ['dir-action', 'dir-explicit', 'dir-speech', 'indirect', 'writing-device']
 
 class NestedOrderLexicon(SentimentLexicon):
+  def __init__(self, filepath='data/lexicon/intensity.csv', ngrams=[1]):
+    self.super().__init__(filepath=filepath, ngrams=ngrams)
+  
   labels = ['0', '1', '2', '3']
 
 class SubjectivityPolarityLexicon(SentimentLexicon):
+  def __init__(self, filepath='data/lexicon/subjectivity-polarity.csv', ngrams=[1]):
+    self.super().__init__(filepath=filepath, ngrams=ngrams)
+  
   labels = ['COMP', 'NEG', 'NEUT', 'POS']
 
 class SubjectivityTypeLexicon(SentimentLexicon):
+  def __init__(self, filepath='data/lexicon/subjectivity-type.csv', ngrams=[1]):
+    self.super().__init__(filepath=filepath, ngrams=ngrams)
+  
   labels = ['Agreement', 'Argument', 'Emotion', 'Intention', 'Judgment', 'Others', 'Speculation']
 
 class GenericLexicon(SentimentLexicon):
