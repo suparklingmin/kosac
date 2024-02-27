@@ -14,8 +14,6 @@ setup(
         'transformers',
     ],
     data_files=[
-        (
-            'data/lexicon', ['kosac/data/lexicon/polarity.csv']
-        )
+        ('data/lexicon', ['kosac/data/lexicon/polarity.csv'])
     ],
 )
