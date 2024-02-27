@@ -12,6 +12,10 @@ setup(
         'konlpy',
         'nltk',
         'transformers',
-    ]
-
+    ],
+    data_files=[
+        (
+            'data/lexicon', ['kosac/data/lexicon/polarity.csv']
+        )
+    ],
 )
