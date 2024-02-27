@@ -13,7 +13,7 @@ setup(
         'nltk',
         'transformers',
     ],
-    data_files=[
-        ('data/lexicon', ['kosac/data/lexicon/polarity.csv'])
-    ],
+    packages=find_packages(where="src"),
+    package_dir={"": "src"},
+    include_package_data=True
 )
