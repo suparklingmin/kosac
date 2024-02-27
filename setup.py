@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup, find_namespace_packages
 
 setup(
     name='kosac',
@@ -13,7 +13,11 @@ setup(
         'nltk',
         'transformers',
     ],
-    packages=find_packages(where="src"),
+    packages=find_namespace_packages(where="src"),
     package_dir={"": "src"},
-    include_package_data=True
+    package_data={
+        "kosac": [],
+        "kosac.data": [],
+        "kosac.data.lexicon": ["*.csv"],
+    }
 )
