@@ -19,5 +19,7 @@ setup(
         "kosac": [],
         "kosac.data": [],
         "kosac.data.lexicon": ["*.csv"],
+        "kosac.data.corpora": ["*.csv"],
+        "kosac.data.tagger": [".txt"],
     }
 )
