@@ -143,7 +143,7 @@ class SentimentLexicon:
 
 class PolarityLexicon(SentimentLexicon):
   def __init__(self, filepath='./data/lexicon/polarity.csv', **kwargs):
-    super().__init__(filepath=filepath, ngrams=ngrams, **kwargs)
+    super().__init__(filepath=filepath, **kwargs)
   
   labels = ['COMP', 'NEG', 'NEUT', 'None', 'POS'] 
 
@@ -172,8 +172,8 @@ class SubjectivityPolarityLexicon(SentimentLexicon):
   labels = ['COMP', 'NEG', 'NEUT', 'POS']
 
 class SubjectivityTypeLexicon(SentimentLexicon):
-  def __init__(self, filepath='data/lexicon/subjectivity-type.csv', ngrams=[1]):
-    super().__init__(filepath=filepath, ngrams=ngrams)
+  def __init__(self, filepath='data/lexicon/subjectivity-type.csv', **kwargs):
+    super().__init__(filepath=filepath, **kwargs)
   
   labels = ['Agreement', 'Argument', 'Emotion', 'Intention', 'Judgment', 'Others', 'Speculation']
 
