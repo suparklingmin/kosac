@@ -15,5 +15,5 @@ setup(
     ],
     packages=find_packages(where="src"),
     package_dir={"": "src"},
-    package_data={"kosac/data/corpora", ["*.csv"]}
+    package_data={"kosac/data/lexicon", ["*.csv"]}
 )
