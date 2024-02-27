@@ -142,32 +142,32 @@ class SentimentLexicon:
     return softmax(np.log(smoothed).sum()).sort_values(ascending=False)
 
 class PolarityLexicon(SentimentLexicon):
-  def __init__(self, filepath='./data/lexicon/polarity.csv', ngrams=[1]):
-    super().__init__(filepath=filepath, ngrams=ngrams)
+  def __init__(self, filepath='./data/lexicon/polarity.csv', **kwargs):
+    super().__init__(filepath=filepath, ngrams=ngrams, **kwargs)
   
   labels = ['COMP', 'NEG', 'NEUT', 'None', 'POS'] 
 
 class IntensityLexicon(SentimentLexicon):
-  def __init__(self, filepath='./data/lexicon/intensity.csv', ngrams=[1]):
-    super().__init__(filepath=filepath, ngrams=ngrams)
+  def __init__(self, filepath='./data/lexicon/intensity.csv', **kwargs):
+    super().__init__(filepath=filepath, **kwargs)
   
   labels = ['High', 'Low', 'Medium', 'None']
 
 class ExpressiveTypeLexicon(SentimentLexicon):
-  def __init__(self, filepath='./data/lexicon/expressive-type.csv', ngrams=[1]):
-    super().__init__(filepath=filepath, ngrams=ngrams)
+  def __init__(self, filepath='./data/lexicon/expressive-type.csv', **kwargs):
+    super().__init__(filepath=filepath, **kwargs)
   
   labels = ['dir-action', 'dir-explicit', 'dir-speech', 'indirect', 'writing-device']
 
 class NestedOrderLexicon(SentimentLexicon):
-  def __init__(self, filepath='data/lexicon/intensity.csv', ngrams=[1]):
-    super().__init__(filepath=filepath, ngrams=ngrams)
+  def __init__(self, filepath='data/lexicon/intensity.csv', **kwargs):
+    super().__init__(filepath=filepath, **kwargs)
   
   labels = ['0', '1', '2', '3']
 
 class SubjectivityPolarityLexicon(SentimentLexicon):
-  def __init__(self, filepath='data/lexicon/subjectivity-polarity.csv', ngrams=[1]):
-    super().__init__(filepath=filepath, ngrams=ngrams)
+  def __init__(self, filepath='data/lexicon/subjectivity-polarity.csv', **kwargs):
+    super().__init__(filepath=filepath, **kwargs)
   
   labels = ['COMP', 'NEG', 'NEUT', 'POS']
 
