@@ -133,6 +133,9 @@ class SentimentLexicon:
   def get_smoothed_lexicon(self):
     return self.lexicon.apply(smooth, labels=self.labels, axis=1)
 
+  def get_smoothed_prob(self, entry):
+    return smooth(self.get_entry(entry), labels=self.labels)
+
   def get_sent_probs(self, sentence, tokenizer, smoothing=True):
     matches = self.match(sentence, tokenizer)
     frequencies = self.lexicon.loc[matches].copy()
