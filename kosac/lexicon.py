@@ -4,7 +4,7 @@ import re
 from .utils import *
 
 class SentimentLexicon:
-  def __init__(self, filepath=None, ngrams=[1]):
+  def __init__(self, filepath=None, ngrams=[1], min_freq=1, threshold=0.0):
     self.ngrams = ngrams
 
     if filepath:
@@ -26,8 +26,12 @@ class SentimentLexicon:
       df.index.name = 'entry'
       
     self.original_lexicon = df
-    self.lexicon = self.original_lexicon.copy()
-  
+    lex = self.original_lexicon.copy()
+    # TODO: frequency 대신 tf-idf
+    self.lexicon = lex[(lex['freq'] >= min_freq) & (lex['max.prop'] > threshold)]
+    self.min_freq = min_freq
+    self.threshold = threshold
+
   def __repr__(self):
     name = type(self).__name__
     return f'{name}(ngrams={self.ngrams}, min_freq={self.min_freq}, threshold={self.threshold})'
@@ -44,13 +48,6 @@ class SentimentLexicon:
   def get_original_lexicon(self):
     return self.original_lexicon
 
-  def set_lexicon(self, min_freq=0, threshold=0.0):
-    df = self.lexicon
-    # TODO: frequency 대신 tf-idf
-    self.lexicon = df[(df['freq'] >= min_freq) & (df['max.prop'] > threshold)]
-    self.min_freq = min_freq
-    self.threshold = threshold
-  
   def get_lexicon(self):
     return self.lexicon
 
