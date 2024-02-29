@@ -56,7 +56,6 @@ class Lexicon:
 
   def reset_lexicon(self):
     self.lexicon = self.original_lexicon.copy()
-    print(self.lexicon)
 
   def get_size(self):
     return len(self.lexicon)
@@ -68,12 +67,12 @@ class Lexicon:
     return self.lexicon.loc[morph]
   
   def del_entry(self, morph):
-    del self.lexicon.loc[morph]
+    self.lexicon.loc[morph] = None
   
   def merge_entries(self, morph1, *morphs):
     for morph in morphs:
       self.lexicon.loc[morph] += self.lexicon.loc[morph]
-      del self.lexicon.loc[morph]
+      self.del_entry(morph)
   
   def verify(self, morph, verbose=True):
     counts = self.lexicon.loc[morph, self.labels].astype('int')
