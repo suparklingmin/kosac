@@ -69,11 +69,6 @@ class Lexicon:
   def del_entry(self, morph):
     self.lexicon.drop(morph, inplace=True)
   
-  def merge_entries(self, morph1, *morphs):
-    for morph in morphs:
-      self.lexicon.loc[morph1, self.labels] += self.lexicon.loc[morph, self.labels]
-      self.del_entry(morph)
-  
   def verify(self, morph, verbose=True):
     counts = self.lexicon.loc[morph, self.labels].astype('int')
     self.lexicon.loc[morph, 'freq'] = counts.sum()
@@ -81,6 +76,13 @@ class Lexicon:
     self.lexicon.loc[morph, 'max.prop'] = counts.max() / counts.sum()
     if verbose:
       print(self.lexicon.loc[morph])
+
+  def merge_entries(self, morph1, *morphs):
+    for morph in morphs:
+      self.lexicon.loc[morph1, self.labels] += self.lexicon.loc[morph, self.labels]
+      self.del_entry(morph)
+    
+    self.verify(morph1, verbose=False)
 
   def initialize_entry(self, morph):
     row = pd.Series(dtype='object')
