@@ -55,6 +55,9 @@ class Lexicon:
   def get_lexicon(self):
     return self.lexicon
 
+  def reset_lexicon(self):
+    self.lexicon = self.original_lexicon.copy()
+
   def get_size(self):
     return len(self.lexicon)
   
