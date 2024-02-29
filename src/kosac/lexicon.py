@@ -67,7 +67,7 @@ class Lexicon:
     return self.lexicon.loc[morph]
   
   def del_entry(self, morph):
-    self.lexicon.loc[morph] = None
+    del self.lexicon.loc[morph]
   
   def merge_entries(self, morph1, *morphs):
     for morph in morphs:
