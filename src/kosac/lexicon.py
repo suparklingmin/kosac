@@ -5,8 +5,10 @@ from .utils import *
 
 from importlib.resources import files
 
-class SentimentLexicon:
-  def __init__(self, filepath=None, ngrams=[1], min_freq=1, threshold=0.0):
+class Lexicon:
+  labels = []
+
+  def __init__(self, filepath=None, ngrams=[1,2,3], min_freq=1, threshold=0.0):
     self.ngrams = ngrams
 
     if filepath:
@@ -24,7 +26,7 @@ class SentimentLexicon:
       df.sort_values('entry', inplace=True)
       df.set_index('entry', inplace=True)
     else:
-      df = pd.DataFrame()
+      df = pd.DataFrame(columns=['entry', 'ngram, freq']+self.labels+['max.value', 'max.prop'])
       df.index.name = 'entry'
       
     self.original_lexicon = df
@@ -146,42 +148,42 @@ class SentimentLexicon:
 
     return softmax(np.log(smoothed).sum()).sort_values(ascending=False)
 
-class PolarityLexicon(SentimentLexicon):
+
+class PolarityLexicon(Lexicon):
+  labels = ['COMP', 'NEG', 'NEUT', 'None', 'POS'] 
+class KosacPolarityLexicon(PolarityLexicon):
   def __init__(self, filepath=files('kosac').joinpath('data/lexicon/polarity.csv'), **kwargs):
     super().__init__(filepath=filepath, **kwargs)
-  
-  labels = ['COMP', 'NEG', 'NEUT', 'None', 'POS'] 
-
-class IntensityLexicon(SentimentLexicon):
+class IntensityLexicon(Lexicon):
   def __init__(self, filepath='./data/lexicon/intensity.csv', **kwargs):
     super().__init__(filepath=filepath, **kwargs)
   
   labels = ['High', 'Low', 'Medium', 'None']
 
-class ExpressiveTypeLexicon(SentimentLexicon):
+class ExpressiveTypeLexicon(Lexicon):
   def __init__(self, filepath='./data/lexicon/expressive-type.csv', **kwargs):
     super().__init__(filepath=filepath, **kwargs)
   
   labels = ['dir-action', 'dir-explicit', 'dir-speech', 'indirect', 'writing-device']
 
-class NestedOrderLexicon(SentimentLexicon):
+class NestedOrderLexicon(Lexicon):
   def __init__(self, filepath='data/lexicon/intensity.csv', **kwargs):
     super().__init__(filepath=filepath, **kwargs)
   
   labels = ['0', '1', '2', '3']
 
-class SubjectivityPolarityLexicon(SentimentLexicon):
+class SubjectivityPolarityLexicon(Lexicon):
   def __init__(self, filepath='data/lexicon/subjectivity-polarity.csv', **kwargs):
     super().__init__(filepath=filepath, **kwargs)
   
   labels = ['COMP', 'NEG', 'NEUT', 'POS']
 
-class SubjectivityTypeLexicon(SentimentLexicon):
+class SubjectivityTypeLexicon(Lexicon):
   def __init__(self, filepath='data/lexicon/subjectivity-type.csv', **kwargs):
     super().__init__(filepath=filepath, **kwargs)
   
   labels = ['Agreement', 'Argument', 'Emotion', 'Intention', 'Judgment', 'Others', 'Speculation']
 
-class GenericLexicon(SentimentLexicon):
+class GenericLexicon(Lexicon):
   def set_labels(self, labels:list):
     self.labels = labels
