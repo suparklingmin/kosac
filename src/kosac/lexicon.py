@@ -29,10 +29,9 @@ class Lexicon:
       df = pd.DataFrame(columns=['entry', 'ngram, freq']+self.labels+['max.value', 'max.prop'])
       df.index.name = 'entry'
       
-    self.original_lexicon = df
-    lex = self.original_lexicon.copy()
     # TODO: frequency 대신 tf-idf
-    self.lexicon = lex[(lex['freq'] >= min_freq) & (lex['max.prop'] > threshold)]
+    self.original_lexicon = df[(df['freq'] >= min_freq) & (df['max.prop'] > threshold)]
+    self.lexicon = self.original_lexicon.copy()
     self.min_freq = min_freq
     self.threshold = threshold
 
@@ -57,6 +56,7 @@ class Lexicon:
 
   def reset_lexicon(self):
     self.lexicon = self.original_lexicon.copy()
+    print(self.lexicon)
 
   def get_size(self):
     return len(self.lexicon)
@@ -67,6 +67,14 @@ class Lexicon:
   def get_entry(self, morph):
     return self.lexicon.loc[morph]
   
+  def del_entry(self, morph):
+    del self.lexicon.loc[morph]
+  
+  def merge_entries(self, morph1, *morphs):
+    for morph in morphs:
+      self.lexicon.loc[morph] += self.lexicon.loc[morph]
+      del self.lexicon.loc[morph]
+  
   def verify(self, morph, verbose=True):
     counts = self.lexicon.loc[morph, self.labels].astype('int')
     self.lexicon.loc[morph, 'freq'] = counts.sum()
@@ -75,7 +83,7 @@ class Lexicon:
     if verbose:
       print(self.lexicon.loc[morph])
 
-  def initialize_entry(self, morph, **kwargs):
+  def initialize_entry(self, morph):
     row = pd.Series(dtype='object')
     row['ngram'] = morph.count(' ') + 1
     row['freq'] = 0
