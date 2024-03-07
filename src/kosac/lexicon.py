@@ -163,9 +163,11 @@ class Lexicon:
 
 class PolarityLexicon(Lexicon):
   labels = ['COMP', 'NEG', 'NEUT', 'None', 'POS'] 
+
 class KosacPolarityLexicon(PolarityLexicon):
   def __init__(self, filepath=files('kosac').joinpath('data/lexicon/polarity.csv'), **kwargs):
     super().__init__(filepath=filepath, **kwargs)
+
 class IntensityLexicon(Lexicon):
   def __init__(self, filepath='./data/lexicon/intensity.csv', **kwargs):
     super().__init__(filepath=filepath, **kwargs)
@@ -196,6 +198,9 @@ class SubjectivityTypeLexicon(Lexicon):
   
   labels = ['Agreement', 'Argument', 'Emotion', 'Intention', 'Judgment', 'Others', 'Speculation']
 
+
+
 class GenericLexicon(Lexicon):
-  def set_labels(self, labels:list):
+  def __init__(self, labels=[] **kwargs):
     self.labels = labels
+    super().__init__(**kwargs)
