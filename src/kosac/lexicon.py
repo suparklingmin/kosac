@@ -201,6 +201,7 @@ class SubjectivityTypeLexicon(Lexicon):
 
 
 class GenericLexicon(Lexicon):
-  def __init__(self, labels=[] **kwargs):
+  def __init__(self, labels, **kwargs):
+    assert labels
     self.labels = labels
     super().__init__(**kwargs)
